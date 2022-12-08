@@ -1,1 +1,218 @@
-af
+import pandas as pd
+import matplotlib.pyplot as plt
+import datetime as dt    
+    
+print('*************************************************************')
+print('                   BANK MANAGEMENT SYSTEM                    ')
+print('*************************************************************')
+print(dt.datetime.now())
+print()
+print('1.Create account')
+print()
+print('2.Display file customer details')
+print()
+print('3.Display file account details')
+print()
+print('4.Delete Account')
+print()
+print('5.balance enquiry')
+print()
+print('6.Maximum balance from all accounts in bank')
+print()
+print('7.Minimum balance from all accounts in bank')
+print()1
+print('8.Withdraw from account')
+print()
+print('9.Deposit in account')
+print()
+print('10.Line PLot')
+print()
+print('11.Bar Plot')
+print()
+print('12.Barh Plot')
+print()
+print('*************************************************************')
+   
+n = int(input('Enter your choice: '))
+
+if n==1:
+    print('Adding New Account Holder in the system')
+    print()
+    print('Enter your details')
+    accno = int(input('Enter acount no: '))
+    name = input('Enter your name(i.e. manvi): ')
+    s_name = input('Enter your surname: ')
+    address = input('Enter your address: ')
+    Mob_no = int(input('Enter your Mobile no.: '))
+    proof = input('Enter your identity proof name: ')
+    proof_no = input('Enter idenity proof no.: ')
+    fathers_name = input('Enter you fathers name: ')
+    credit = int(input('Enter the credit amount: '))
+    debit = int(input('Enter the debit amount: '))
+    bal = int(input('Enter the staring Balance: '))    
+    print()
+    df = pd.read_csv('C:\Bank management\Customer Details.csv')
+    df1 = pd.read_csv('C:\Bank management\Account Details.csv')
+    n = df['Account No'].count()
+    m = df1['Account No'].count()
+    df.at[n] = [accno,name,s_name,address,Mob_no,proof,proof_no,fathers_name]
+    df1.at[m] = [accno,name,s_name,credit,debit,bal]
+    print(df)
+    print(df1)
+    df.to_csv(path_or_buf = 'C:\Bank management\Customer Details.csv',index = False)
+    df1.to_csv(path_or_buf = 'C:\Bank management\Account Details.csv',index = False)
+    print('Successfully Added')
+
+
+elif n==2:
+    print('Reading file Customer Details')
+    print()
+    print()
+    print('CSV FILE - CUSTOMER DETAILS')
+    print()
+    df = pd.read_csv('C:\Bank management\Customer Details.csv')
+    print(df)
+
+
+elif n==3:
+    print('Reading file Account Details')
+    print()
+    print()
+    print('CSV FILE - ACCOUNT DETAILS')
+    print()
+    df = pd.read_csv('C:\Bank management\Account Details.csv')
+    print(df)
+
+
+elif n==4:
+   print('Deleting account holder from file system')
+   df = pd.read_csv('C:\Bank management\Customer Details.csv')
+   df1 = pd.read_csv('C:\Bank management\Account Details.csv')
+   print(df)
+   print(df1)
+   acc_no = int(input('Enter account no. '))
+   print()
+   for (i,c) in df.iterrows():
+       if c['Account No'] == acc_no:
+           df.drop(i,axis=0,inplace = True)
+   print('Customer table after deleting the record with account no.',acc_no)
+   print()
+   print(df)
+   df.to_csv(path_or_buf = 'C:\Bank management\Customer Details.csv',index = False)
+   for (m,n) in df1.iterrows():
+       if n['Account No'] == acc_no:
+           df1.drop(m,axis = 0,inplace = True)
+   print('Account table after deleting the record with account no.',acc_no)
+   print()
+   print(df1)
+   df1.to_csv(path_or_buf = 'C:\Bank management\Account Details.csv',index = False)
+
+
+elif n==5:
+    print('Displaying only Account No., Name and Balance')
+    print()
+    df = pd.read_csv('C:\Bank management\Account Details.csv',usecols=['Account No','Name','Balance'])
+    print(df)
+
+
+elif n==6:
+    print('Displaying maximum balance')
+    print()
+    df = pd.read_csv('C:\Bank management\Account Details.csv')
+    print(df)
+    print()
+    print('Maximum Balance: ')
+    print(df.Balance.max())
+
+
+elif n==7:
+    print('Displaying minimum balance')
+    print()
+    df = pd.read_csv('C:\Bank management\Account Details.csv')
+    print(df)
+    print()
+    print('Minimum Balance: ')
+    print(df.Balance.min())
+
+
+elif n==8:
+    print('Withdrawing amount from the account')
+    df = pd.read_csv('C:\Bank management\Account Details.csv')
+    print()
+    print('Previous Statement')
+    print()
+    print(df)
+    acc_no = int(input('Enter account no.: '))
+    deb = int(input('Amount to be debitted: '))
+    print()
+    df.loc[df['Account No']==acc_no, ['Debit']] = df['Debit']-deb
+    print()
+    df['Balance']=df['Balance']-deb
+    print(df)
+
+
+elif n==9:
+    print('Depositing amount into the account')
+    df = pd.read_csv('C:\Bank management\Account Details.csv')
+    print()
+    print('Previous Statement')
+    print()
+    print(df)
+    acc_no = int(input('Enter account no.: '))
+    cre = int(input('Amount to be creditted: '))
+    print()
+    df.loc[df['Account No'] ==acc_no,['Credit']] = df['Credit'] + cre
+    df['Balance'] = df['Balance'] + cre
+    print(df)
+
+
+elif n==10:
+    print('Line Plot')
+    print()
+    df = pd.read_csv('C:\Bank management\Account Details.csv')
+    print(df)
+    x = df['Name']
+    y = df['Balance']
+    plt.xlabel('Name')
+    plt.ylabel('Balance')
+    plt.title('Balance of Account Holders')
+    plt.plot(x,y,marker = 'X',linestyle = '-',linewidth = 3,color = 'blue')
+    plt.show()
+
+
+elif n==11:
+    print('Bar plot')
+    print()
+    df = pd.read_csv('C:\Bank management\Account Details.csv')
+    print(df)
+    x = df['Name']
+    y = df['Balance']
+    plt.title('Balance of Account Holders')
+    plt.xlabel('Name')
+    plt.ylabel('Balance')
+    plt.bar(x,y,color=['red','green'])
+    plt.show()
+
+
+elif n==12:
+    print('Horizontal bar plot')
+    print()
+    df = pd.read_csv('C:\Bank management\Account Details.csv')
+    print(df)
+    x = df['Name']
+    y = df['Balance']
+    plt.title('Balance of Account Holders')
+    plt.xlabel('Name')
+    plt.ylabel('Balance')
+    plt.barh(x,y,color='blue',edgecolor='pink')
+    plt.show()
+
+
+else:
+    print('invalid option')
+    print('\a')    
+    
+
+
+
+
