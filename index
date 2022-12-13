@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import datetime as dt    
     
 print('*************************************************************')
-print('                   BANK MANAGEMENT SYSTEM                    ')
+print('                   BANK MANAGEMENT SYSTEM                    ') why ?
 print('*************************************************************')
 print(dt.datetime.now())
 print()
