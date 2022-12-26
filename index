@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import datetime as dt    
     
 print('*************************************************************')
-print('                   BANK MANAGEMENT SYSTEM                    ') why ?
+print('                   BANK MANAGEMENT SYSTEM                    ')
 print('*************************************************************')
 print(dt.datetime.now())
 print()
@@ -20,7 +20,7 @@ print()
 print('6.Maximum balance from all accounts in bank')
 print()
 print('7.Minimum balance from all accounts in bank')
-print()1
+print()
 print('8.Withdraw from account')
 print()
 print('9.Deposit in account')
@@ -211,8 +211,5 @@ elif n==12:
 else:
     print('invalid option')
     print('\a')    
+
     
-
-
-
-
